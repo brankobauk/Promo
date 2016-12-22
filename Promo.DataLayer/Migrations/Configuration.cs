@@ -9,7 +9,7 @@ namespace Promo.DataLayer.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Promo.DataLayer.ApplicationDbContext";
         }
 
