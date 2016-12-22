@@ -1,0 +1,75 @@
+﻿@model Promo.Model.ViewModels.PromotionViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Promotion</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Promotion.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Promotion.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.CompanyId, "CompanyId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(x => x.Promotion.CompanyId, Model.Companies, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Promotion.CompanyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.CountryId, "CountryId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.Promotion.CountryId, Model.Countries, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Promotion.CountryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Promotion.StartDate, new { htmlAttributes = new { @class = "form-control date" } })
+                @Html.ValidationMessageFor(model => model.Promotion.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Promotion.EndDate, new { htmlAttributes = new { @class = "form-control date" } })
+                @Html.ValidationMessageFor(model => model.Promotion.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/customval")
+
+}

@@ -1,0 +1,16 @@
+namespace Promo.DataLayer.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class FixDateTimeValidation : DbMigration
+    {
+        public override void Up()
+        {
+        }
+        
+        public override void Down()
+        {
+        }
+    }
+}
