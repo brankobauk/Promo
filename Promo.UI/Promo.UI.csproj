@@ -257,6 +257,38 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\themes\multiverse\css\font-awesome.min.css" />
+    <Content Include="Content\themes\multiverse\css\ie8.css" />
+    <Content Include="Content\themes\multiverse\css\ie9.css" />
+    <Content Include="Content\themes\multiverse\css\images\arrow.svg" />
+    <Content Include="Content\themes\multiverse\css\images\close.svg" />
+    <Content Include="Content\themes\multiverse\css\images\spinner.svg" />
+    <Content Include="Content\themes\multiverse\css\main.css" />
+    <Content Include="Content\themes\multiverse\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\themes\multiverse\images\fulls\01.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\02.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\03.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\04.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\05.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\06.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\07.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\08.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\09.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\10.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\11.jpg" />
+    <Content Include="Content\themes\multiverse\images\fulls\12.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\01.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\02.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\03.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\04.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\05.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\06.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\07.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\08.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\09.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\10.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\11.jpg" />
+    <Content Include="Content\themes\multiverse\images\thumbs\12.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -267,6 +299,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\customval.js" />
+    <Content Include="Content\themes\multiverse\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\themes\multiverse\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\themes\multiverse\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\themes\multiverse\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\themes\multiverse\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -279,6 +316,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\multiverse\js\ie\html5shiv.js" />
+    <Content Include="Scripts\multiverse\js\ie\respond.min.js" />
+    <Content Include="Scripts\multiverse\js\jquery.min.js" />
+    <Content Include="Scripts\multiverse\js\jquery.poptrox.min.js" />
+    <Content Include="Scripts\multiverse\js\main.js" />
+    <Content Include="Scripts\multiverse\js\skel.min.js" />
+    <Content Include="Scripts\multiverse\js\util.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -347,6 +391,7 @@
     <Content Include="Views\ApplicationUsers\Details.cshtml" />
     <Content Include="Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\Shared\_PageLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
