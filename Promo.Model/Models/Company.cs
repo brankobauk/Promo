@@ -12,11 +12,13 @@ namespace Promo.Model.Models
         public Company()
         {
             Promotion = new List<Promotion>();
+            Store = new List<Store>();
         }
         [Key]
         public int CompanyId { get; set; }
         [Required]
         public string Name { get; set; }
         private ICollection<Promotion> Promotion { get; set; }
+        private ICollection<Store> Store { get; set; }
     }
 }

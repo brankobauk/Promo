@@ -1397,8 +1397,8 @@
 		-ms-user-select: none;
 		-webkit-user-select: none;
 		background: #1f2224;
-		bottom: -1em;
-		height: 5em;
+		top: 0em;
+		height: 4.2em;
 		left: 0;
 		line-height: 4em;
 		padding: 0 1.5em;
@@ -1528,6 +1528,8 @@
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        top:4.2em;
+        position:relative;
 	}
 
 		#main .thumb {
@@ -1543,6 +1545,7 @@
 			opacity: 1;
 			overflow: hidden;
 			position: relative;
+            
 		}
 
 			#main .thumb:after {
@@ -1822,9 +1825,9 @@
 				-webkit-transition-delay: 1.625s;
 				-ms-transition-delay: 1.625s;
 				transition-delay: 1.625s;
-				height: calc(40vh - 2em);
-				min-height: 20em;
-				width: 50%;
+				height: calc(40vh - 5em);
+				min-height: 10em;
+				width: 25%;
 			}
 
 				#main .thumb:nth-child(1) {
