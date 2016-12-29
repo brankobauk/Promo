@@ -9,11 +9,16 @@ namespace Promo.Model.Models
 {
     public class Store
     {
+        public Store()
+        {
+            PromotionStore = new List<PromotionStore>();
+        }
         [Key]
         public int StoreId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
         public int CompanyId { get; set; }
         private Company Company { get; set; }
+        private ICollection<PromotionStore> PromotionStore { get; set; }
     }
 }

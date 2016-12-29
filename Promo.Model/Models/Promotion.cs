@@ -13,6 +13,7 @@ namespace Promo.Model.Models
         {
             PromotionProduct = new List<PromotionProduct>();
             PromotionBrand = new List<PromotionBrand>();
+            PromotionStore = new List<PromotionStore>();
         }
         [Key]
         public int PromotionId { get; set; }
@@ -28,6 +29,7 @@ namespace Promo.Model.Models
 
         private ICollection<PromotionProduct> PromotionProduct { get; set; }
         private ICollection<PromotionBrand> PromotionBrand { get; set; }
+        private ICollection<PromotionStore> PromotionStore { get; set; }
         private Company Company { get; set; }
         private Country Country { get; set; }
     }

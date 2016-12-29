@@ -52,6 +52,7 @@
     <Compile Include="Models\Promotion.cs" />
     <Compile Include="Models\PromotionBrand.cs" />
     <Compile Include="Models\PromotionProduct.cs" />
+    <Compile Include="Models\PromotionStore.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\PromotionViewModel.cs" />
