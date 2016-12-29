@@ -85,7 +85,7 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BrandId,Name")] Brand brand, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "BrandId,Name,Published")] Brand brand, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {

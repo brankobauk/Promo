@@ -34,8 +34,8 @@ namespace Promo.DataLayer
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            
         }
 
         public static ApplicationDbContext Create()
