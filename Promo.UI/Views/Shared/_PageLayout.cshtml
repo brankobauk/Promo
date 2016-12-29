@@ -17,12 +17,28 @@
         <!-- Header -->
         <header id="header">
             <img src="~/Content/themes/multiverse/images/razprodaje-logo.png" />
-            <nav>
-                <ul>
-                    <li><a href="#footer">Kategorije</a></li>
-                    <li><a href="#footer">Katalogi</a></li>
-                    <li><a href="#footer">O nas</a></li>
+            <div class="menu-toggle">
+                <span class="menu-toggle-hamburger"></span>
+            </div>
+            <nav class="the-menu">
+                <ul class="main-menu">
+                    <li><a href="/categories" title="Kategorije">Kategorije</a>
+                        <ul>
+                            <li><a href="/categories" title="Kategorije">Obleke</a></li>
+                            <li><a href="/categories" title="Kategorije">Obutev</a></li>
+                            <li><a href="/categories" title="Kategorije">Živila</a></li>
+                            <li><a href="/categories" title="Kategorije">Tehnika</a></li>
+                            <li><a href="/categories" title="Kategorije">Za živali</a></li>
+                            <li><a href="/categories" title="Kategorije">Igrače</a></li>
+                            <li><a href="/categories" title="Kategorije">Drogerija</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/catalogs" title="Katalogi">Katalogi</a></li>
+                    <li><a href="/brands" title="Blagovne znamke">Blagovne znamke</a></li>
                 </ul>
+                <form action="/search" method="get">
+                    <input type="text" name="q" value="" placeholder="Search...">
+                </form>
             </nav>
         </header>
 
@@ -86,6 +102,13 @@
     <script src="/scripts/multiverse/js/util.js"></script>
     <!--[if lte IE 8]><script src="/scripts/multiverse/js/ie/respond.min.js"></script><![endif]-->
     <script src="/scripts/multiverse/js/main.js"></script>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".menu-toggle").click(function () {
+                $(this).toggleClass("on"), $(".the-menu").toggleClass("on")
+            }
+        );
+        });
+    </script>
 </body>
 </html>
