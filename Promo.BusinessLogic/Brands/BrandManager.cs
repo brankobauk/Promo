@@ -15,6 +15,11 @@ namespace Promo.BusinessLogic.Brands
             return _brandHandler.GetAllBrands();
         }
 
+        public List<Brand> GetAllPublishedBrands()
+        {
+            return _brandHandler.GetAllBrands().Where(p=>p.Published == true).ToList();
+        }
+
         public Brand GetBrand(int? brandId)
         {
             return _brandHandler.GetBrand(brandId);

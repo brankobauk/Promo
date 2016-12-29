@@ -16,7 +16,8 @@ namespace Promo.Model.Models
         [Key]
         public int ProductId { get; set; }
         [Required]
-        public string Name { get; set; } 
+        public string Name { get; set; }
+        public byte[] Image { get; set; }
         public decimal Price { get; set; }
         public decimal PriceDiscount { get; set; }
         public string Url { get; set; }

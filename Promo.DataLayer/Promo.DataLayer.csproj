@@ -90,6 +90,14 @@
     <Compile Include="Migrations\201612091302489_FixDateTimeValidation.Designer.cs">
       <DependentUpon>201612091302489_FixDateTimeValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612291131090_BrandChange.cs" />
+    <Compile Include="Migrations\201612291131090_BrandChange.Designer.cs">
+      <DependentUpon>201612291131090_BrandChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612291949234_Images.cs" />
+    <Compile Include="Migrations\201612291949234_Images.Designer.cs">
+      <DependentUpon>201612291949234_Images.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PromotionRepository.cs" />
@@ -135,6 +143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612091302489_FixDateTimeValidation.resx">
       <DependentUpon>201612091302489_FixDateTimeValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291131090_BrandChange.resx">
+      <DependentUpon>201612291131090_BrandChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291949234_Images.resx">
+      <DependentUpon>201612291949234_Images.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

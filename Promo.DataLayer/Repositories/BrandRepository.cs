@@ -40,6 +40,8 @@ namespace Promo.DataLayer.Repositories
             using (var _db = new ApplicationDbContext())
             {
                 _db.Entry(brand).State = EntityState.Modified;
+                if (brand.Image == null)
+                    _db.Entry(brand).Property(m => m.Image).IsModified = false;
                 _db.SaveChanges();
             }
         }

@@ -18,6 +18,7 @@ namespace Promo.Model.Models
         public int PromotionId { get; set; }
         [Required]
         public string Name { get; set; }
+        public byte[] Image { get; set; }
         public int CompanyId { get; set; }
         public int CountryId { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]

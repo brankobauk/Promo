@@ -393,6 +393,7 @@
     <Content Include="Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\Shared\_PageLayout.cshtml" />
+    <Content Include="Views\Brand\PublishedBrands.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

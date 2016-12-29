@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using Promo.Model.Models;
 using Promo.BusinessLogic.Brands;
+using System.Web;
+using System.IO;
+using System.Drawing;
 
 namespace Promo.UI.Controllers
 {
@@ -42,11 +45,20 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BrandId,Name")] Brand brand)
+        public ActionResult Create([Bind(Include = "BrandId,Name")] Brand brand, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
                 _brandManager.AddBrand(brand);
+                
+
+                if (image != null && image.ContentLength > 0)
+                {
+                    var path = Path.Combine(Server.MapPath("~/App_Start/"),
+                                            Path.GetFileName(image.FileName));
+                    image.SaveAs(path);
+
+                }
                 return RedirectToAction("Index");
             }
 
@@ -73,14 +85,38 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BrandId,Name")] Brand brand)
+        public ActionResult Edit([Bind(Include = "BrandId,Name")] Brand brand, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                
+
+                byte[] image = null;
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    string path;
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                        file.SaveAs(path);
+                        image = System.IO.File.ReadAllBytes(path);
+                        System.IO.File.Delete(path);
+                        
+                    }
+                    
+                }
+                brand.Image = image;
                 _brandManager.EditBrand(brand);
                 return RedirectToAction("Index");
             }
             return View(brand);
+        }
+
+        public ActionResult PublishedBrands()
+        {
+            var brands = _brandManager.GetAllBrands();
+            return View(brands);
         }
     }
 }

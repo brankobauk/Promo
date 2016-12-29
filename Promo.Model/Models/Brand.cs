@@ -18,6 +18,8 @@ namespace Promo.Model.Models
         public int BrandId { get; set; }
         [Required]
         public string Name { get; set; }
+        public byte[] Image { get; set; }
+        public bool Published { get; set; }
 
         private ICollection<Product> Product { get; set; }
         private ICollection<PromotionBrand> PromotionBrand { get; set; }
