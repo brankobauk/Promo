@@ -34,7 +34,7 @@ namespace Promo.DataLayer
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
 
@@ -50,6 +50,8 @@ namespace Promo.DataLayer
         public DbSet<Promotion> Promotion { get; set; }
         public DbSet<PromotionBrand> PromotionBrand { get; set; }
         public DbSet<PromotionProduct> PromotionProduct { get; set; }
-        
+        public DbSet<Store> Store { get; set; }
+        public DbSet<PromotionStore> PromotionStore { get; set; }
+
     }
 }

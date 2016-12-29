@@ -19,6 +19,7 @@ namespace Promo.Model.Models
         public int PromotionId { get; set; }
         [Required]
         public string Name { get; set; }
+        public string Text { get; set; }
         public byte[] Image { get; set; }
         public int CompanyId { get; set; }
         public int CountryId { get; set; }
