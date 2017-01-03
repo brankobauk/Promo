@@ -109,6 +109,7 @@
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\BrandRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\StoreRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

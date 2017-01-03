@@ -45,5 +45,15 @@ namespace Promo.BusinessLogic.Products
         {
             _productHandler.EditProduct(Product);
         }
+
+        public ProductViewModel GetProductToEdit(int? productId)
+        {
+            return new ProductViewModel()
+            {
+                Product = _productHandler.GetProduct(productId),
+                Brands = _dropDownHelper.GetBrandListForDropDown(_brandHandler.GetAllBrands()),
+                Countries = _dropDownHelper.GetCountryListForDropDown(_countryHandler.GetCountries())
+            };
+        }
     }
 }

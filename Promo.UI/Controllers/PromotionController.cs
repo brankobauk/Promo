@@ -4,6 +4,9 @@ using System.Net;
 using System.Web.Mvc;
 using Promo.Model.Models;
 using Promo.BusinessLogic.Promotions;
+using System.Web;
+using System.IO;
+using Promo.Model.ViewModels;
 
 namespace Promo.UI.Controllers
 {
@@ -44,10 +47,26 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PromotionId,Name,CompanyId,CountryId,StartDate,EndDate")] Promotion promotion)
+        public ActionResult Create([Bind(Include = "PromotionId,Name,Text,CompanyId,CountryId,StartDate,EndDate")] Promotion promotion, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                byte[] image = null;
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    string path;
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                        file.SaveAs(path);
+                        image = System.IO.File.ReadAllBytes(path);
+                        System.IO.File.Delete(path);
+
+                    }
+
+                }
+                promotion.Image = image;
                 _promotionManager.AddPromotion(promotion);
                 return RedirectToAction("Index");
             }
@@ -75,10 +94,28 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PromotionId,Name,CompanyId,CountryId,StartDate,EndDate")] Promotion promotion)
+        public ActionResult Edit( PromotionViewModel promotionViewModel)
         {
+            var promotion = promotionViewModel.Promotion;
             if (ModelState.IsValid)
             {
+                byte[] image = null;
+                
+                if (promotionViewModel.File != null && promotionViewModel.File.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(promotionViewModel.File.FileName);
+                    string path;
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                        promotionViewModel.File.SaveAs(path);
+                        image = System.IO.File.ReadAllBytes(path);
+                        System.IO.File.Delete(path);
+
+                    }
+
+                }
+                promotion.Image = image;
                 _promotionManager.EditPromotion(promotion);
                 return RedirectToAction("Index");
             }

@@ -1,9 +1,5 @@
 ﻿$(document).ready(function () {
-    $('.date').prop('readOnly', true);
-    $('.date').datepicker({
-        dateFormat: 'dd.mm.yy',
-        minDate: '1.1.2010',
-    });
+    
 jQuery.validator.addMethod(
         'date',
         function (value, element, params) {
@@ -21,4 +17,7 @@ jQuery.validator.addMethod(
         },
         ''
     );
+$.validator.methods.number = function (value, element) {
+    return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\,]\d{3})+)(?:[\,]\d+)?$/.test(value);
+}
 });

@@ -8,40 +8,38 @@ using System.Threading.Tasks;
 
 namespace Promo.DataLayer.Repositories
 {
-    public class ProductRepository
+    public class StoreRepository
     {
-        public List<Product> GetAllProducts()
-        { 
-            using(var _db = new ApplicationDbContext())
-            {
-                    return _db.Product.ToList();
-            }
-        }
-
-        public Product GetProduct(int? productId)
+        public List<Store> GetAllStores()
         {
             using (var _db = new ApplicationDbContext())
             {
-                return _db.Product.Find(productId);
+                return _db.Store.ToList();
             }
         }
 
-        public void AddProduct(Product product)
+        public Store GetStore(int? storeId)
         {
             using (var _db = new ApplicationDbContext())
             {
-                 _db.Product.Add(product);
+                return _db.Store.Find(storeId);
+            }
+        }
+
+        public void AddStore(Store store)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                _db.Store.Add(store);
                 _db.SaveChanges();
             }
         }
 
-        public void EditProduct(Product product)
+        public void EditStore(Store store)
         {
             using (var _db = new ApplicationDbContext())
             {
-                _db.Entry(product).State = EntityState.Modified;
-                if (product.Image == null)
-                    _db.Entry(product).Property(m => m.Image).IsModified = false;
+                _db.Entry(store).State = EntityState.Modified;
                 _db.SaveChanges();
             }
         }

@@ -45,20 +45,27 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BrandId,Name")] Brand brand, HttpPostedFileBase image)
+        public ActionResult Create(Brand brand, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                _brandManager.AddBrand(brand);
-                
-
-                if (image != null && image.ContentLength > 0)
+                byte[] image = null;
+                if (file != null && file.ContentLength > 0)
                 {
-                    var path = Path.Combine(Server.MapPath("~/App_Start/"),
-                                            Path.GetFileName(image.FileName));
-                    image.SaveAs(path);
+                    var fileName = Path.GetFileName(file.FileName);
+                    string path;
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                        file.SaveAs(path);
+                        image = System.IO.File.ReadAllBytes(path);
+                        System.IO.File.Delete(path);
+
+                    }
 
                 }
+                brand.Image = image;
+                _brandManager.AddBrand(brand);
                 return RedirectToAction("Index");
             }
 
@@ -85,7 +92,7 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BrandId,Name,Published")] Brand brand, HttpPostedFileBase file)
+        public ActionResult Edit(Brand brand, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {

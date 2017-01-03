@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Promo.DataLayer;
 using Promo.Model.Models;
 using Promo.BusinessLogic.Products;
+using Promo.Model.ViewModels;
+using System.IO;
 
 namespace Promo.UI.Controllers
 {
@@ -51,10 +53,28 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,Name,Price,PriceDiscount,Url,BrandId,CountryId")] Product product)
+        public ActionResult Create(ProductViewModel productViewModel)
         {
+            var product = productViewModel.Product;
             if (ModelState.IsValid)
             {
+                byte[] image = null;
+
+                if (productViewModel.File != null && productViewModel.File.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(productViewModel.File.FileName);
+                    string path;
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                        productViewModel.File.SaveAs(path);
+                        image = System.IO.File.ReadAllBytes(path);
+                        System.IO.File.Delete(path);
+
+                    }
+
+                }
+                product.Image = image;
                 _productManager.AddProduct(product);
                 return RedirectToAction("Index");
             }
@@ -69,7 +89,7 @@ namespace Promo.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _productManager.GetProduct(productId);
+            ProductViewModel product = _productManager.GetProductToEdit(productId);
             if (product == null)
             {
                 return HttpNotFound();
@@ -82,10 +102,28 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Name,Price,PriceDiscount,Url,BrandId,CountryId")] Product product)
+        public ActionResult Edit(ProductViewModel productViewModel)
         {
+            var product = productViewModel.Product;
             if (ModelState.IsValid)
             {
+                byte[] image = null;
+
+                if (productViewModel.File != null && productViewModel.File.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(productViewModel.File.FileName);
+                    string path;
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                        productViewModel.File.SaveAs(path);
+                        image = System.IO.File.ReadAllBytes(path);
+                        System.IO.File.Delete(path);
+
+                    }
+
+                }
+                product.Image = image;
                 _productManager.EditProduct(product);
                 return RedirectToAction("Index");
             }

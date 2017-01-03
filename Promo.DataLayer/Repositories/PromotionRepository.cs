@@ -18,28 +18,30 @@ namespace Promo.DataLayer.Repositories
             }
         }
 
-        public Promotion GetPromotion(int? PromotionId)
+        public Promotion GetPromotion(int? promotionId)
         {
             using (var _db = new ApplicationDbContext())
             {
-                return _db.Promotion.Find(PromotionId);
+                return _db.Promotion.Find(promotionId);
             }
         }
 
-        public void AddPromotion(Promotion Promotion)
+        public void AddPromotion(Promotion promotion)
         {
             using (var _db = new ApplicationDbContext())
             {
-                 _db.Promotion.Add(Promotion);
+                 _db.Promotion.Add(promotion);
                 _db.SaveChanges();
             }
         }
 
-        public void EditPromotion(Promotion Promotion)
+        public void EditPromotion(Promotion promotion)
         {
             using (var _db = new ApplicationDbContext())
             {
-                _db.Entry(Promotion).State = EntityState.Modified;
+                _db.Entry(promotion).State = EntityState.Modified;
+                if (promotion.Image == null)
+                    _db.Entry(promotion).Property(m => m.Image).IsModified = false;
                 _db.SaveChanges();
             }
         }

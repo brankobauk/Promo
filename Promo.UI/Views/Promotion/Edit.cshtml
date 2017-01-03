@@ -7,7 +7,8 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Promotion", FormMethod.Post,
+                                        new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -28,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Promotion.CompanyId, "CompanyId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => x.Promotion.CompanyId, Model.Companies)
+                @Html.DropDownListFor(x => x.Promotion.CompanyId, Model.Companies, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Promotion.CompanyId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Promotion.CountryId, "CountryId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => x.Promotion.CountryId, Model.Countries)
+                @Html.DropDownListFor(x => x.Promotion.CountryId, Model.Countries, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Promotion.CountryId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,6 +59,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.File, new { type = "file", htmlAttributes = new { @class = "form-control date" } })
+                @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -73,5 +82,6 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/customval")
+    @Scripts.Render("~/bundles/promotion")
 }
 

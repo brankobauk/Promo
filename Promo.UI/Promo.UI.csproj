@@ -204,6 +204,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PromotionController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -323,6 +324,7 @@
     <Content Include="Scripts\multiverse\js\main.js" />
     <Content Include="Scripts\multiverse\js\skel.min.js" />
     <Content Include="Scripts\multiverse\js\util.js" />
+    <Content Include="Scripts\promotion\promotion.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -394,6 +396,11 @@
     <Content Include="Views\Shared\_PageLayout.cshtml" />
     <Content Include="Views\Brand\PublishedBrands.cshtml" />
     <Content Include="Views\Brand\Edit.cshtml" />
+    <Content Include="Views\Store\Create.cshtml" />
+    <Content Include="Views\Store\Delete.cshtml" />
+    <Content Include="Views\Store\Details.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
