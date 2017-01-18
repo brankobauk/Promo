@@ -1,6 +1,7 @@
 ﻿using Promo.BusinessLogic.Companies;
 using Promo.DataLayer.Repositories;
 using Promo.Helpers;
+using Promo.Model.HelperModels;
 using Promo.Model.Models;
 using Promo.Model.ViewModels;
 using System;
@@ -16,6 +17,7 @@ namespace Promo.BusinessLogic.Stores
         private StoreHandler _storeHandler = new StoreHandler();
         private CompanyHandler _companyHandler = new CompanyHandler();
         private DropDownHelpers _dropDownHelper = new DropDownHelpers();
+        private JsonHelper _jsonHelper = new JsonHelper();
         public List<Store> GetAllStores()
         {
             return _storeHandler.GetAllStores();
@@ -52,5 +54,10 @@ namespace Promo.BusinessLogic.Stores
                 Companies = _dropDownHelper.GetCompanyListForDropDown(_companyHandler.GetAllCompanies())
             };
         }
+
+        public IEnumerable<SelectItem> GetStoresByCompanyForJson(int companyId)
+        {
+            return _jsonHelper.GetStoresByCompanyForJson(_storeHandler.GetAllStores().Where(p => p.CompanyId == companyId).ToList());
+    }
     }
 }

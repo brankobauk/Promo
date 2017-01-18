@@ -119,11 +119,5 @@ namespace Promo.UI.Controllers
             }
             return View(brand);
         }
-
-        public ActionResult PublishedBrands()
-        {
-            var brands = _brandManager.GetAllBrands();
-            return View(brands);
-        }
     }
 }

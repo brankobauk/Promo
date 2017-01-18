@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Promo.Model.HelperModels;
 
 namespace Promo.DataLayer.Repositories
 {
@@ -35,6 +36,15 @@ namespace Promo.DataLayer.Repositories
             }
         }
 
+        public List<Brand> GetBrandsByText(string text)
+        {
+            
+            using (var _db = new ApplicationDbContext())
+            {
+
+                return _db.Brand.Where(p => p.Name.ToLower().Contains(text.ToLower())).ToList();
+            }
+        }
         public void EditBrand(Brand brand)
         {
             using (var _db = new ApplicationDbContext())

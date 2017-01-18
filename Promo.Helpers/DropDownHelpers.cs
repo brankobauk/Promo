@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using System.Globalization;
+using Promo.Model.HelperModels;
 
 namespace Promo.Helpers
 {
@@ -25,5 +26,6 @@ namespace Promo.Helpers
         {
             return companies.Select(company => new SelectListItem { Value = company.CompanyId.ToString(CultureInfo.InvariantCulture), Text = company.Name.ToString(CultureInfo.InvariantCulture) }).ToList();
         }
+
     }
 }

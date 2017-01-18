@@ -35,7 +35,8 @@ namespace Promo.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/themes/base/*.css"));
+                      "~/Content/themes/base/*.css",
+                      "~/Content/select2.min.css"));
         }
     }
 }

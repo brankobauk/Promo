@@ -45,5 +45,57 @@ namespace Promo.DataLayer.Repositories
                 _db.SaveChanges();
             }
         }
+
+        public void AddPromotionBrand(PromotionBrand promotionBrand)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                _db.PromotionBrand.Add(promotionBrand);
+                _db.SaveChanges();
+            }
+        }
+
+        public List<PromotionStore> GetPromotionStores(int? promotionId)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                return _db.PromotionStore.Where(p => p.PromotionId == promotionId).ToList();
+            }
+        }
+
+        public List<PromotionBrand> GetPromotionBrands(int? promotionId)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                return _db.PromotionBrand.Where(p=>p.PromotionId == promotionId).ToList();
+            }
+        }
+
+        public void DeletePromotionStores(int promotionId)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                _db.PromotionStore.RemoveRange(_db.PromotionStore.Where(p => p.PromotionId == promotionId));
+                _db.SaveChanges();
+            }
+        }
+
+        public void AddPromotionStore(PromotionStore promotionStore)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                _db.PromotionStore.Add(promotionStore);
+                _db.SaveChanges();
+            }
+        }
+
+        public void DeletePromotionBrands(int promotionId)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                _db.PromotionBrand.RemoveRange(_db.PromotionBrand.Where(p=>p.PromotionId == promotionId));
+                _db.SaveChanges();
+            }
+        }
     }
 }

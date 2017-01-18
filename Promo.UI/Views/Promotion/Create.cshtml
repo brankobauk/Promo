@@ -11,7 +11,7 @@
                                                     new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Promotion</h4>
         <hr />
@@ -63,6 +63,18 @@
             </div>
         </div>
         <div class="form-group">
+            <label class = "control-label col-md-2">Brands</label>
+            <div class="col-md-10">
+                <select class="js-brands-data-array form-control" name="BrandIds[]" id="BrandIds"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Stores</label>
+            <div class="col-md-10">
+                <select class="js-stores-data-array form-control" name="StoreIds[]" id="StoreIds"></select>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -78,6 +90,6 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/customval")
+    @Scripts.Render("~/Scripts/select2.js")
     @Scripts.Render("~/bundles/promotion")
-
 }

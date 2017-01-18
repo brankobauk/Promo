@@ -47,8 +47,9 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PromotionId,Name,Text,CompanyId,CountryId,StartDate,EndDate")] Promotion promotion, HttpPostedFileBase file)
+        public ActionResult Create(PromotionViewModel promotionViewModel, HttpPostedFileBase file)
         {
+            var promotion = promotionViewModel.Promotion;
             if (ModelState.IsValid)
             {
                 byte[] image = null;
@@ -68,6 +69,11 @@ namespace Promo.UI.Controllers
                 }
                 promotion.Image = image;
                 _promotionManager.AddPromotion(promotion);
+                if (promotion.PromotionId != 0)
+                {
+                    _promotionManager.AddPromotionBrands(promotion.PromotionId, promotionViewModel.BrandIds);
+                    _promotionManager.AddPromotionStores(promotion.PromotionId, promotionViewModel.StoreIds);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -117,6 +123,13 @@ namespace Promo.UI.Controllers
                 }
                 promotion.Image = image;
                 _promotionManager.EditPromotion(promotion);
+
+                _promotionManager.DeletePromotionBrands(promotion.PromotionId);
+                _promotionManager.AddPromotionBrands(promotion.PromotionId, promotionViewModel.BrandIds);
+
+                _promotionManager.DeletePromotionStores(promotion.PromotionId);
+                _promotionManager.AddPromotionStores(promotion.PromotionId, promotionViewModel.StoreIds);
+
                 return RedirectToAction("Index");
             }
             return View(promotion);

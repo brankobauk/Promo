@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Promo.DataLayer;
 using Promo.DataLayer.Repositories;
 using Promo.Model.Models;
+using Promo.Model.HelperModels;
 
 namespace Promo.BusinessLogic.Promotions
 {
@@ -18,19 +19,49 @@ namespace Promo.BusinessLogic.Promotions
             return _promotionRepository.GetAllPromotions();
         }
 
-        public Promotion GetPromotion(int? PromotionId)
+        public Promotion GetPromotion(int? promotionId)
         {
-            return _promotionRepository.GetPromotion(PromotionId);
+            return _promotionRepository.GetPromotion(promotionId);
         }
 
-        public void AddPromotion(Promotion Promotion)
+        public void AddPromotion(Promotion promotion)
         {
-            _promotionRepository.AddPromotion(Promotion);
+            _promotionRepository.AddPromotion(promotion);
         }
 
-        public void EditPromotion(Promotion Promotion)
+        public void EditPromotion(Promotion promotion)
         {
-            _promotionRepository.EditPromotion(Promotion);
+            _promotionRepository.EditPromotion(promotion);
+        }
+
+        public void AddPromotionBrand(PromotionBrand promotionBrand)
+        {
+            _promotionRepository.AddPromotionBrand(promotionBrand);
+        }
+
+        public int[] GetPromotionBrands(int? promotionId)
+        {
+             return _promotionRepository.GetPromotionBrands(promotionId).Select(p=>p.BrandId).ToArray();
+        }
+
+        public void DeletePromotionBrands(int promotionId)
+        {
+            _promotionRepository.DeletePromotionBrands(promotionId);
+        }
+
+        public int[] GetPromotionStores(int? promotionId)
+        {
+            return _promotionRepository.GetPromotionStores(promotionId).Select(p => p.StoreId).ToArray();
+        }
+
+        public void AddPromotionStore(PromotionStore promotionStore)
+        {
+            _promotionRepository.AddPromotionStore(promotionStore);
+        }
+
+        public void DeletePromotionStores(int promotionId)
+        {
+            _promotionRepository.DeletePromotionStores(promotionId);
         }
     }
 }

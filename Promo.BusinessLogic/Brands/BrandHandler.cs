@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Promo.DataLayer;
 using Promo.DataLayer.Repositories;
+using Promo.Model.HelperModels;
 using Promo.Model.Models;
 
 namespace Promo.BusinessLogic.Brands
@@ -26,6 +27,11 @@ namespace Promo.BusinessLogic.Brands
         public void AddBrand(Brand brand)
         {
             _brandRepository.AddBrand(brand);
+        }
+
+        public List<Brand> GetBrandsByText(string text)
+        {
+            return _brandRepository.GetBrandsByText(text);
         }
 
         public void EditBrand(Brand brand)
