@@ -10,37 +10,80 @@ using Promo.DataLayer;
 using Promo.Model.Models;
 using Promo.BusinessLogic.Stores;
 using Promo.Model.ViewModels;
+using Promo.BusinessLogic.Errors;
+using Promo.Helpers.Mappers;
 
 namespace Promo.UI.Controllers
 {
     public class StoreController : Controller
     {
         private readonly StoreManager _storeManager = new StoreManager();
+        private readonly ErrorManager _errorManager = new ErrorManager();
+        private readonly ErrorMapper _errorMapper = new ErrorMapper();
         // GET: Store
         public ActionResult Index()
         {
-            return View(_storeManager.GetAllStores());
+            try
+            {
+                return View(_storeManager.GetAllStores());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Store/Details/5
         public ActionResult Details(int? storeId)
         {
-            if (storeId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (storeId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Store store = _storeManager.GetStore(storeId);
+                if (store == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(store);
             }
-            Store store = _storeManager.GetStore(storeId);
-            if (store == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(store);
         }
 
         // GET: Store/Create
         public ActionResult Create()
         {
-            return View(_storeManager.GetEmptyStore());
+            try
+            {
+                return View(_storeManager.GetEmptyStore());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // POST: Store/Create
@@ -50,28 +93,54 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StoreId,Name,Location,CompanyId")] Store store)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _storeManager.AddStore(store);
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    _storeManager.AddStore(store);
+                    return RedirectToAction("Index");
+                }
 
-            return View(store);
+                return View(store);
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Store/Edit/5
         public ActionResult Edit(int? storeId)
         {
-            if (storeId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (storeId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                StoreViewModel storeViewModel = _storeManager.GetPromotionToEdit(storeId);
+                if (storeViewModel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(storeViewModel);
             }
-            StoreViewModel storeViewModel = _storeManager.GetPromotionToEdit(storeId);
-            if (storeViewModel == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(storeViewModel);
         }
 
         // POST: Store/Edit/5
@@ -81,12 +150,25 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StoreId,Name,Location,CompanyId")] Store store)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _storeManager.EditStore(store);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _storeManager.EditStore(store);
+                    return RedirectToAction("Index");
+                }
+                return View(store);
             }
-            return View(store);
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
     }
 }

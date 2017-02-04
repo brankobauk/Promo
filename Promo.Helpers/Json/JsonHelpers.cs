@@ -5,9 +5,9 @@ using System.Globalization;
 using Promo.Model.HelperModels;
 using System;
 
-namespace Promo.Helpers
+namespace Promo.Helpers.Json
 {
-    public class JsonHelper
+    public class JsonHelpers
     {
         public IEnumerable<SelectItem> GetBrandListForJson(List<Brand> brands)
         {

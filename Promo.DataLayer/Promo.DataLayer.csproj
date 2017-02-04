@@ -102,8 +102,13 @@
     <Compile Include="Migrations\201612292215551_Stores.Designer.cs">
       <DependentUpon>201612292215551_Stores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702041238008_Errors.cs" />
+    <Compile Include="Migrations\201702041238008_Errors.Designer.cs">
+      <DependentUpon>201702041238008_Errors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\PromotionRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
@@ -157,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612292215551_Stores.resx">
       <DependentUpon>201612292215551_Stores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702041238008_Errors.resx">
+      <DependentUpon>201702041238008_Errors.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Promo.Model.HelperModels;
 using Promo.Helpers;
+using Promo.Helpers.Json;
 
 namespace Promo.BusinessLogic.Brands
 {
     public class BrandManager
     {
         private BrandHandler _brandHandler = new BrandHandler();
-        private JsonHelper _jsonHelper = new JsonHelper();
+        private JsonHelpers _jsonHelper = new JsonHelpers();
         public List<Brand> GetAllBrands()
         {
             return _brandHandler.GetAllBrands();

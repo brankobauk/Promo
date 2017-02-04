@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using Promo.Model.Models;
 using Promo.BusinessLogic.Countries;
+using Promo.BusinessLogic.Errors;
+using Promo.Helpers.Mappers;
+using System;
 
 namespace Promo.UI.Controllers
 {
@@ -9,32 +12,75 @@ namespace Promo.UI.Controllers
     public class CountryController : Controller
     {
         private CountryManager _countryManager = new CountryManager();
-
+        private readonly ErrorManager _errorManager = new ErrorManager();
+        private readonly ErrorMapper _errorMapper = new ErrorMapper();
         // GET: Country
         public ActionResult Index()
         {
-            return View(_countryManager.GetCountries());
+            try
+            {
+                return View(_countryManager.GetCountries());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
         // GET: Country/Details/5
         public ActionResult Details(int? countryId)
         {
-            if (countryId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (countryId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Country country = _countryManager.GetCountry(countryId);
+                if (country == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(country);
             }
-            Country country = _countryManager.GetCountry(countryId);
-            if (country == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(country);
+            
         }
 
         // GET: Country/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
         // POST: Country/Create
@@ -44,28 +90,54 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CountryId,Name")] Country country)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _countryManager.AddCountry(country);
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    _countryManager.AddCountry(country);
+                    return RedirectToAction("Index");
+                }
 
-            return View(country);
+                return View(country);
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Country/Edit/5
         public ActionResult Edit(int? countryId)
         {
-            if (countryId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (countryId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Country country = _countryManager.GetCountry(countryId);
+                if (country == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(country);
             }
-            Country country = _countryManager.GetCountry(countryId);
-            if (country == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(country);
         }
 
         // POST: Country/Edit/5
@@ -75,12 +147,25 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CountryId,Name")] Country country)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _countryManager.EditCountry(country);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _countryManager.EditCountry(country);
+                    return RedirectToAction("Index");
+                }
+                return View(country);
             }
-            return View(country);
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
     }
 }

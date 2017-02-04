@@ -11,6 +11,8 @@ using Promo.Model.Models;
 using Promo.BusinessLogic.Products;
 using Promo.Model.ViewModels;
 using System.IO;
+using Promo.BusinessLogic.Errors;
+using Promo.Helpers.Mappers;
 
 namespace Promo.UI.Controllers
 {
@@ -18,34 +20,73 @@ namespace Promo.UI.Controllers
     public class ProductController : Controller
     {
         private ProductManager _productManager = new ProductManager();
-
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ErrorManager _errorManager = new ErrorManager();
+        private readonly ErrorMapper _errorMapper = new ErrorMapper();
 
         // GET: Product
         public ActionResult Index()
         {
-            return View(_productManager.GetAllProducts());
+            try
+            {
+                return View(_productManager.GetAllProducts());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Product/Details/5
         public ActionResult Details(int? productId)
         {
-            if (productId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (productId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Product product = _productManager.GetProduct(productId);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(product);
             }
-            Product product = _productManager.GetProduct(productId);
-            if (product == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(product);
         }
 
         // GET: Product/Create
         public ActionResult Create()
         {
-            return View(_productManager.GetEmptyProduct());
+            try
+            {
+                return View(_productManager.GetEmptyProduct());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // POST: Product/Create
@@ -55,46 +96,72 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel productViewModel)
         {
-            var product = productViewModel.Product;
-            if (ModelState.IsValid)
+            try
             {
-                byte[] image = null;
-
-                if (productViewModel.File != null && productViewModel.File.ContentLength > 0)
+                var product = productViewModel.Product;
+                if (ModelState.IsValid)
                 {
-                    var fileName = Path.GetFileName(productViewModel.File.FileName);
-                    string path;
-                    if (fileName != null)
+                    byte[] image = null;
+
+                    if (productViewModel.File != null && productViewModel.File.ContentLength > 0)
                     {
-                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
-                        productViewModel.File.SaveAs(path);
-                        image = System.IO.File.ReadAllBytes(path);
-                        System.IO.File.Delete(path);
+                        var fileName = Path.GetFileName(productViewModel.File.FileName);
+                        string path;
+                        if (fileName != null)
+                        {
+                            path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                            productViewModel.File.SaveAs(path);
+                            image = System.IO.File.ReadAllBytes(path);
+                            System.IO.File.Delete(path);
+
+                        }
 
                     }
-
+                    product.Image = image;
+                    _productManager.AddProduct(product);
+                    return RedirectToAction("Index");
                 }
-                product.Image = image;
-                _productManager.AddProduct(product);
-                return RedirectToAction("Index");
-            }
 
-            return View(product);
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Product/Edit/5
         public ActionResult Edit(int? productId)
         {
-            if (productId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (productId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ProductViewModel product = _productManager.GetProductToEdit(productId);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(product);
             }
-            ProductViewModel product = _productManager.GetProductToEdit(productId);
-            if (product == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(product);
         }
 
         // POST: Product/Edit/5
@@ -104,30 +171,43 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel productViewModel)
         {
-            var product = productViewModel.Product;
-            if (ModelState.IsValid)
+            try
             {
-                byte[] image = null;
-
-                if (productViewModel.File != null && productViewModel.File.ContentLength > 0)
+                var product = productViewModel.Product;
+                if (ModelState.IsValid)
                 {
-                    var fileName = Path.GetFileName(productViewModel.File.FileName);
-                    string path;
-                    if (fileName != null)
+                    byte[] image = null;
+
+                    if (productViewModel.File != null && productViewModel.File.ContentLength > 0)
                     {
-                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
-                        productViewModel.File.SaveAs(path);
-                        image = System.IO.File.ReadAllBytes(path);
-                        System.IO.File.Delete(path);
+                        var fileName = Path.GetFileName(productViewModel.File.FileName);
+                        string path;
+                        if (fileName != null)
+                        {
+                            path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                            productViewModel.File.SaveAs(path);
+                            image = System.IO.File.ReadAllBytes(path);
+                            System.IO.File.Delete(path);
+
+                        }
 
                     }
-
+                    product.Image = image;
+                    _productManager.EditProduct(product);
+                    return RedirectToAction("Index");
                 }
-                product.Image = image;
-                _productManager.EditProduct(product);
-                return RedirectToAction("Index");
+                return View(product);
             }
-            return View(product);
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
     }
 }

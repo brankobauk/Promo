@@ -8,6 +8,8 @@ using System;
 using System.Web.Mvc;
 using Promo.BusinessLogic.Brands;
 using Promo.Model.HelperModels;
+using Promo.Helpers.Dropdowns;
+using Promo.Helpers.Json;
 
 namespace Promo.BusinessLogic.Promotions
 {
@@ -18,7 +20,7 @@ namespace Promo.BusinessLogic.Promotions
         private CountryHandler _countryHandler = new CountryHandler();
         private BrandHandler _brandHandler = new BrandHandler();
         private DropDownHelpers _dropDownHelper = new DropDownHelpers();
-        private JsonHelper _jsonHelper = new JsonHelper();
+        private JsonHelpers _jsonHelper = new JsonHelpers();
         public List<Promotion> GetAllPromotions()
         {
             return _promotionHandler.GetAllPromotions();

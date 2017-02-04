@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using Promo.Model.HelperModels;
 
-namespace Promo.Helpers
+namespace Promo.Helpers.Dropdowns
 {
     public class DropDownHelpers
     {

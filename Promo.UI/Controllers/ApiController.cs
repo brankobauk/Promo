@@ -1,6 +1,9 @@
 ﻿using Promo.BusinessLogic.Brands;
+using Promo.BusinessLogic.Errors;
 using Promo.BusinessLogic.Promotions;
 using Promo.BusinessLogic.Stores;
+using Promo.Helpers.Errors;
+using Promo.Helpers.Mappers;
 using Promo.Model.HelperModels;
 using System;
 using System.Collections.Generic;
@@ -15,10 +18,26 @@ namespace Promo.UI.Controllers
         private readonly BrandManager _brandManager = new BrandManager();
         private readonly PromotionManager _promotionManager = new PromotionManager();
         private readonly StoreManager _storeManager = new StoreManager();
+        private readonly ErrorManager _errorManager = new ErrorManager();
+        private readonly ErrorMapper _errorMapper = new ErrorMapper();
         public ActionResult GetPromotionBrands(int promotionId)
         {
-            var items = _promotionManager.GetPromotionBrands(promotionId);
-            return this.Json(items, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var items = _promotionManager.GetPromotionBrands(promotionId);
+                return this.Json(items, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                ViewBag.Error = ErrorText.GeneralError;
+                return View();
+            }
         }
 
         public ActionResult GetPublishedBrands()

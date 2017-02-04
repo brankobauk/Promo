@@ -4,7 +4,9 @@ using Promo.Model.Models;
 using Promo.BusinessLogic.Brands;
 using System.Web;
 using System.IO;
-using System.Drawing;
+using Promo.BusinessLogic.Errors;
+using Promo.Helpers.Mappers;
+using System;
 
 namespace Promo.UI.Controllers
 {
@@ -12,32 +14,75 @@ namespace Promo.UI.Controllers
     public class BrandController : Controller
     {
         private BrandManager _brandManager = new BrandManager();
-
+        private readonly ErrorManager _errorManager = new ErrorManager();
+        private readonly ErrorMapper _errorMapper = new ErrorMapper();
         // GET: Brands
         public ActionResult Index()
         {
-            return View(_brandManager.GetAllBrands());
+            try
+            {
+                return View(_brandManager.GetAllBrands());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
         // GET: Brands/Details/5
         public ActionResult Details(int? brandId)
         {
-            if (brandId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (brandId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Brand brand = _brandManager.GetBrand(brandId);
+                if (brand == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(brand);
             }
-            Brand brand = _brandManager.GetBrand(brandId);
-            if (brand == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(brand);
+            
         }
 
         // GET: Brands/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
         // POST: Brands/Create
@@ -47,44 +92,70 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Brand brand, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
-                byte[] image = null;
-                if (file != null && file.ContentLength > 0)
+                if (ModelState.IsValid)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    string path;
-                    if (fileName != null)
+                    byte[] image = null;
+                    if (file != null && file.ContentLength > 0)
                     {
-                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
-                        file.SaveAs(path);
-                        image = System.IO.File.ReadAllBytes(path);
-                        System.IO.File.Delete(path);
+                        var fileName = Path.GetFileName(file.FileName);
+                        string path;
+                        if (fileName != null)
+                        {
+                            path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                            file.SaveAs(path);
+                            image = System.IO.File.ReadAllBytes(path);
+                            System.IO.File.Delete(path);
+
+                        }
 
                     }
-
+                    brand.Image = image;
+                    _brandManager.AddBrand(brand);
+                    return RedirectToAction("Index");
                 }
-                brand.Image = image;
-                _brandManager.AddBrand(brand);
-                return RedirectToAction("Index");
-            }
 
-            return View(brand);
+                return View(brand);
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Brands/Edit/5
         public ActionResult Edit(int? brandId)
         {
-            if (brandId == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (brandId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Brand brand = _brandManager.GetBrand(brandId);
+                if (brand == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(brand);
             }
-            Brand brand = _brandManager.GetBrand(brandId);
-            if (brand == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
             }
-            return View(brand);
         }
 
         // POST: Brands/Edit/5
@@ -94,30 +165,41 @@ namespace Promo.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Brand brand, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            try
             {
-                
-
-                byte[] image = null;
-                if (file != null && file.ContentLength > 0)
+                if (ModelState.IsValid)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    string path;
-                    if (fileName != null)
+                    byte[] image = null;
+                    if (file != null && file.ContentLength > 0)
                     {
-                        path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
-                        file.SaveAs(path);
-                        image = System.IO.File.ReadAllBytes(path);
-                        System.IO.File.Delete(path);
-                        
+                        var fileName = Path.GetFileName(file.FileName);
+                        string path;
+                        if (fileName != null)
+                        {
+                            path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                            file.SaveAs(path);
+                            image = System.IO.File.ReadAllBytes(path);
+                            System.IO.File.Delete(path);
+
+                        }
+
                     }
-                    
+                    brand.Image = image;
+                    _brandManager.EditBrand(brand);
+                    return RedirectToAction("Index");
                 }
-                brand.Image = image;
-                _brandManager.EditBrand(brand);
-                return RedirectToAction("Index");
+                return View(brand);
             }
-            return View(brand);
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Promotion.cs" />
     <Compile Include="Models\PromotionBrand.cs" />

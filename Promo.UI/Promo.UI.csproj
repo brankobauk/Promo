@@ -201,6 +201,7 @@
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -453,6 +454,7 @@
     <Content Include="Views\Store\Details.cshtml" />
     <Content Include="Views\Store\Edit.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -473,6 +475,10 @@
     <ProjectReference Include="..\Promo.DataLayer\Promo.DataLayer.csproj">
       <Project>{47b83a1f-752b-4111-963a-f65e00ab3d7c}</Project>
       <Name>Promo.DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Promo.Helpers\Promo.Helpers.csproj">
+      <Project>{F7310F95-7D7C-4A42-990C-3B8E82DFB3F4}</Project>
+      <Name>Promo.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Promo.Model\Promo.Model.csproj">
       <Project>{629a8bfe-e9f4-43dc-b2ad-889b73e87c18}</Project>
