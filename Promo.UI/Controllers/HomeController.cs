@@ -1,4 +1,5 @@
 ﻿using Promo.BusinessLogic.Errors;
+using Promo.BusinessLogic.Promotions;
 using Promo.Helpers.Mappers;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace Promo.UI.Controllers
 
         private readonly ErrorManager _errorManager = new ErrorManager();
         private readonly ErrorMapper _errorMapper = new ErrorMapper();
+        private readonly PromotionManager _promotionMAnager = new PromotionManager();
         public ActionResult Index()
         {
             try
             {
-                return View();
+                var activePromotions = _promotionMAnager.GetAllActivePromotions(null, null, null);
+                return View(activePromotions);
             }
             catch (Exception ex)
             {

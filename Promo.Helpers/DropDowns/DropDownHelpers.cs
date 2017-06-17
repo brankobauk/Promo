@@ -27,5 +27,9 @@ namespace Promo.Helpers.Dropdowns
             return companies.Select(company => new SelectListItem { Value = company.CompanyId.ToString(CultureInfo.InvariantCulture), Text = company.Name.ToString(CultureInfo.InvariantCulture) }).ToList();
         }
 
+        public IEnumerable<SelectListItem> GetCategoryListForDropDown(List<Category> categories)
+        {
+            return categories.Select(category => new SelectListItem { Value = category.CategoryId.ToString(CultureInfo.InvariantCulture), Text = category.Name.ToString(CultureInfo.InvariantCulture) }).ToList();
+        }
     }
 }

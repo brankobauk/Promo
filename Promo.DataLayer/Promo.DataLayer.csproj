@@ -106,8 +106,13 @@
     <Compile Include="Migrations\201702041238008_Errors.Designer.cs">
       <DependentUpon>201702041238008_Errors.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703012132131_Coupon.cs" />
+    <Compile Include="Migrations\201703012132131_Coupon.Designer.cs">
+      <DependentUpon>201703012132131_Coupon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\PromotionRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
@@ -165,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702041238008_Errors.resx">
       <DependentUpon>201702041238008_Errors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703012132131_Coupon.resx">
+      <DependentUpon>201703012132131_Coupon.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

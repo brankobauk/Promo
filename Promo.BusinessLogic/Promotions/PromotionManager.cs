@@ -10,6 +10,7 @@ using Promo.BusinessLogic.Brands;
 using Promo.Model.HelperModels;
 using Promo.Helpers.Dropdowns;
 using Promo.Helpers.Json;
+using Promo.BusinessLogic.Categories;
 
 namespace Promo.BusinessLogic.Promotions
 {
@@ -18,6 +19,7 @@ namespace Promo.BusinessLogic.Promotions
         private PromotionHandler _promotionHandler = new PromotionHandler();
         private CompanyHandler _companyHandler = new CompanyHandler();
         private CountryHandler _countryHandler = new CountryHandler();
+        private CategoryHandler _categoryHandler = new CategoryHandler();
         private BrandHandler _brandHandler = new BrandHandler();
         private DropDownHelpers _dropDownHelper = new DropDownHelpers();
         private JsonHelpers _jsonHelper = new JsonHelpers();
@@ -36,7 +38,8 @@ namespace Promo.BusinessLogic.Promotions
             return new PromotionViewModel()
             {
                 Companies = _dropDownHelper.GetCompanyListForDropDown(_companyHandler.GetAllCompanies()),
-                Countries = _dropDownHelper.GetCountryListForDropDown(_countryHandler.GetCountries())
+                Countries = _dropDownHelper.GetCountryListForDropDown(_countryHandler.GetCountries()),
+                Categories = _dropDownHelper.GetCategoryListForDropDown(_categoryHandler.GetAllCategories())
             };
         }
 
@@ -105,6 +108,79 @@ namespace Promo.BusinessLogic.Promotions
         public void DeletePromotionStores(int promotionId)
         {
             _promotionHandler.DeletePromotionStores(promotionId);
+        }
+
+        public List<Promotion> GetAllActivePromotions(int? brandId, int? storeId, int? categoryId)
+        {
+            var promotions =  _promotionHandler.GetAllActivePromotions(brandId, storeId, categoryId);
+            var activePromotions = new List<Promotion>();
+            var filteredPromotions = new List<Promotion>();
+            var filterSet = false;
+            if (brandId != null)
+            {
+                foreach (var promotion in promotions)
+                {
+                    var brands = _promotionHandler.GetPromotionBrands(promotion.PromotionId);
+                    foreach (var brand in brands)
+                    {
+                        if(brand == brandId)
+                        {
+                            activePromotions.Add(promotion);
+                        }
+                    }
+                }
+                filterSet = true; 
+            }
+            if (storeId != null)
+            {
+                if (filterSet == true)
+                {
+                    filteredPromotions = activePromotions;
+                    
+                }
+                else {
+                    filteredPromotions = promotions;
+                }
+
+                foreach (var promotion in filteredPromotions)
+                {
+                    var stores = _promotionHandler.GetPromotionStores(promotion.PromotionId);
+                    foreach (var store in stores)
+                    {
+                        if (store == storeId)
+                        {
+                            activePromotions.Add(promotion);
+                        }
+                    }
+                }
+                filterSet = true;
+            }
+            if (categoryId != null)
+            {
+                if (filterSet == true)
+                {
+                    filteredPromotions = activePromotions;
+
+                }
+                else
+                {
+                    filteredPromotions = promotions;
+                }
+
+                foreach (var promotion in filteredPromotions)
+                {
+                    if (promotion.CategoryId == categoryId)
+                    {
+                        activePromotions.Add(promotion);
+                    }
+                }
+                filterSet = true;
+            }
+            if (filterSet == false)
+            { 
+                return promotions;
+            }
+            return activePromotions;
         }
     }
 }

@@ -71,6 +71,14 @@ namespace Promo.DataLayer.Repositories
             }
         }
 
+        public List<Promotion> GetAllActivePromotions(int? brandId, int? storeId, int? categoryId)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                return _db.Promotion.Where(p => p.StartDate < DateTime.Now && p.EndDate > DateTime.Now ).ToList();
+            }
+        }
+
         public void DeletePromotionStores(int promotionId)
         {
             using (var _db = new ApplicationDbContext())

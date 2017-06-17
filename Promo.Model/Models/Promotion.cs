@@ -23,6 +23,8 @@ namespace Promo.Model.Models
         public byte[] Image { get; set; }
         public int CompanyId { get; set; }
         public int CountryId { get; set; }
+        public int CategoryId { get; set; }
+        public string Coupon { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime StartDate { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]

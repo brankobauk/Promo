@@ -41,7 +41,13 @@
                 @Html.ValidationMessageFor(model => model.Promotion.CountryId, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.Promotion.CompanyId, Model.Categories, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Promotion.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Promotion.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -63,6 +69,13 @@
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.File, new { type = "file", htmlAttributes = new { @class = "form-control date" } })
                 @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Promotion.Coupon, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Promotion.Coupon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Promotion.Coupon, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">

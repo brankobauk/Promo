@@ -63,5 +63,10 @@ namespace Promo.BusinessLogic.Promotions
         {
             _promotionRepository.DeletePromotionStores(promotionId);
         }
+
+        public List<Promotion> GetAllActivePromotions(int? brandId, int? storeId, int? categoryId)
+        {
+            return _promotionRepository.GetAllActivePromotions(brandId, storeId, categoryId);
+        }
     }
 }

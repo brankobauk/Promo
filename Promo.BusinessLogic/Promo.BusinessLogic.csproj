@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories\CategoryHandler.cs" />
+    <Compile Include="Categories\CategoryManager.cs" />
     <Compile Include="Errors\ErrorHandler.cs" />
     <Compile Include="Errors\ErrorManager.cs" />
     <Compile Include="Products\ProductHandler.cs" />

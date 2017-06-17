@@ -1,14 +1,23 @@
-﻿@{
+﻿@model IEnumerable<Promo.Model.Models.Promotion>
+@{
     ViewBag.Title = "razprodaje.info";
     Layout = "../Shared/_PageLayout.cshtml";
 }
 
-
+@foreach (var item in Model)
+{
+    var i = 1;
+    if (i == 1)
+    {
         <article class="thumb">
             <a href="/content/themes/multiverse/images/fulls/01.jpg" class="image"><img src="/content/themes/multiverse/images/thumbs/01.jpg" alt="" /></a>
             <h2>Magna feugiat lorem</h2>
             <p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
         </article>
+    }
+    i++;
+}
+        
         <article class="thumb">
             <a href="/content/themes/multiverse/images/fulls/02.jpg" class="image"><img src="/content/themes/multiverse/images/thumbs/02.jpg" alt="" /></a>
             <h2>Nisl adipiscing</h2>

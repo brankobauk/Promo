@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="HelperModels\SelectItem.cs" />
     <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Error.cs" />

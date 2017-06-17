@@ -15,6 +15,7 @@ namespace Promo.Model.ViewModels
         public HttpPostedFileBase File { get; set; }
         public IEnumerable<SelectListItem> Companies { get; set; }
         public IEnumerable<SelectListItem> Countries { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
         public string[] BrandIds { get; set; }
         public string[] StoreIds { get; set; }
     }
