@@ -12,6 +12,8 @@ namespace Promo.Model.Models
         [Key]
         public int CategoryId { get; set; }
         [Required]
+        public int ParentId { get; set; } 
+        [Required]
         public string Name { get; set; }
         private ICollection<Promotion> Promotion { get; set; }
     }

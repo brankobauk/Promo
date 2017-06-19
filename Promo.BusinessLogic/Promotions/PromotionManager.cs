@@ -59,7 +59,8 @@ namespace Promo.BusinessLogic.Promotions
             {
                 Promotion = _promotionHandler.GetPromotion(promotionId),
                 Companies = _dropDownHelper.GetCompanyListForDropDown(_companyHandler.GetAllCompanies()),
-                Countries = _dropDownHelper.GetCountryListForDropDown(_countryHandler.GetCountries())
+                Countries = _dropDownHelper.GetCountryListForDropDown(_countryHandler.GetCountries()),
+                Categories = _dropDownHelper.GetCategoryListForDropDown(_categoryHandler.GetAllCategories())
             };
         }
 
