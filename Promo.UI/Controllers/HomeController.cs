@@ -15,11 +15,11 @@ namespace Promo.UI.Controllers
         private readonly ErrorManager _errorManager = new ErrorManager();
         private readonly ErrorMapper _errorMapper = new ErrorMapper();
         private readonly PromotionManager _promotionMAnager = new PromotionManager();
-        public ActionResult Index()
+        public ActionResult Index(int? brandId, int? storeId, int? categoryId)
         {
             try
             {
-                var activePromotions = _promotionMAnager.GetAllActivePromotions(null, null, null);
+                var activePromotions = _promotionMAnager.GetAllActivePromotions(brandId, storeId, categoryId);
                 return View(activePromotions);
             }
             catch (Exception ex)

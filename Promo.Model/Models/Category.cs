@@ -15,6 +15,8 @@ namespace Promo.Model.Models
         public int ParentId { get; set; } 
         [Required]
         public string Name { get; set; }
+        public int SortOrder { get; set; }
+        public int Level { get; set; }
         private ICollection<Promotion> Promotion { get; set; }
     }
 }

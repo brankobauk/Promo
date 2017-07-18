@@ -23,6 +23,7 @@
             <nav class="the-menu">
                 <ul class="main-menu">
                     <li><a href="/categories" title="Kategorije">Kategorije</a>
+                        @Html.Action("GetAllActiveCategories", "Category")
                         <ul>
                             <li><a href="/categories" title="Kategorije">Obleke</a></li>
                             <li><a href="/categories" title="Kategorije">Obutev</a></li>

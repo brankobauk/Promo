@@ -44,7 +44,7 @@ namespace Promo.UI.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Category category = _categoryManager.GetCategory(categoryId);
+                Category category = _categoryManager.GetCategoryToEdit(categoryId);
                 if (category == null)
                 {
                     return HttpNotFound();
@@ -69,7 +69,8 @@ namespace Promo.UI.Controllers
         {
             try
             {
-                return View();
+                var categoryViewModel = _categoryManager.GetEmptyCategory();
+                return View(categoryViewModel);
             }
             catch (Exception ex)
             {
@@ -89,7 +90,7 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,Name")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryId,Name, ParentId")] Category category)
         {
             try
             {
@@ -122,12 +123,13 @@ namespace Promo.UI.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Category category = _categoryManager.GetCategory(categoryId);
-                if (category == null)
+                var categoryViewModel = _categoryManager.GetCategory(categoryId);
+                if (categoryViewModel.Category == null)
                 {
                     return HttpNotFound();
                 }
-                return View(category);
+                
+                return View(categoryViewModel);
             }
             catch (Exception ex)
             {
@@ -147,7 +149,7 @@ namespace Promo.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "CategoryId,ParentId,Name")] Category category)
         {
             try
             {
@@ -169,6 +171,25 @@ namespace Promo.UI.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
+        }
+        [OverrideAuthorization]
+        public ActionResult GetAllActiveCategories()
+        {
+            try
+            {
+
+                return PartialView(_categoryManager.GetAllCategories());
+            }
+            catch (Exception ex)
+            {
+                var url = "";
+                if (Request.Url != null)
+                {
+                    url = Request.Url.AbsoluteUri;
+                }
+                _errorManager.Log(_errorMapper.MapError(ex, url));
+                return RedirectToAction("Index", "Error");
+            }
         }
 
     }

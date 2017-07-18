@@ -29,7 +29,17 @@ namespace Promo.Helpers.Dropdowns
 
         public IEnumerable<SelectListItem> GetCategoryListForDropDown(List<Category> categories)
         {
-            return categories.Select(category => new SelectListItem { Value = category.CategoryId.ToString(CultureInfo.InvariantCulture), Text = category.Name.ToString(CultureInfo.InvariantCulture) }).ToList();
+            return   categories.Select(category => new SelectListItem { Value = category.CategoryId.ToString(CultureInfo.InvariantCulture), Text = GetCategoryText(category) }).ToList();
+        }
+
+        private string GetCategoryText(Category category)
+        {
+            var text = "";
+            for (var i = 1; i < category.Level; i++)
+            {
+                text = text + "\xA0\xA0";
+            }
+        return text + category.Name;
         }
     }
 }
